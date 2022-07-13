@@ -72,6 +72,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'GreatKart.wsgi.application'
 
+AUTH_USER_MODEL = 'accounts.Account' #account-app name, Account- nazwa klasy w modelu
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -79,7 +80,7 @@ WSGI_APPLICATION = 'GreatKart.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite.3',
     }
 }
 
@@ -131,3 +132,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [ BASE_DIR /
     'static',
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR /'media'
