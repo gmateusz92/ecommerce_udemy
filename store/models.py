@@ -1,5 +1,6 @@
 from django.db import models
 from greatkart1.models import Category
+from django.urls import reverse
 
 
 class Product(models.Model):
@@ -14,6 +15,8 @@ class Product(models.Model):
     created_date    = models.DateTimeField(auto_now_add=True)
     modified_date   = models.DateTimeField(auto_now=True)
 
+    def get_url(self): #daje lacze do otwierania nazw produktow dynamicznie w template
+        return reverse('product_detail', args=[self.category.slug, self.slug])
 
     def __str__(self):
         return self.product_name
