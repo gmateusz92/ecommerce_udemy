@@ -4,6 +4,7 @@ from greatkart1.models import Category
 from carts.views import _cart_id
 from carts.models import CartItem
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db.models import Q
 
 from django.http import HttpResponse
 
@@ -39,5 +40,6 @@ def search(request):
     if 'keyword' in request.GET: #sprawdza czy GET.request ma ten keyword czy nie, jezeli TRUE
         keyword = request.GET['keyword'] # to przechowujemy wartosc 'keyword' w zmiennej keyword
         if keyword: #jezeli keyword istniejee
-            products = Product.object.order_by(-'created_date').filter(description_icontains=keyword) #filtruje wszystkie opisy zawierające dane slowo np jeans
-    return render(request, 'store/store.html', {'products': products})
+            products = Product.objects.order_by('-created_date').filter(Q(description__icontains=keyword) | Q(product_name__icontains=keyword)) #filtruje wszystkie opisy zawierające dane slowo np jeans, moze byc samo 'description'
+            product_count = products.count()
+    return render(request, 'store/store.html', {'products': products, 'product_count': product_count}) #Q importuje/ dokumentacja django
