@@ -34,3 +34,10 @@ def product_detail(request, category_slug, product_slug):
     except Exception as e:
         raise e
     return render(request, 'store/product_detail.html', {'single_product': single_product, 'in_cart': in_cart})
+
+def search(request):
+    if 'keyword' in request.GET: #sprawdza czy GET.request ma ten keyword czy nie, jezeli TRUE
+        keyword = request.GET['keyword'] # to przechowujemy wartosc 'keyword' w zmiennej keyword
+        if keyword: #jezeli keyword istnieje
+            products = Product.object.order_by(-'created_date').filter(description_icontains=keyword) #filtruje wszystkie opisy zawierające dane slowo np jeans
+    return render(request, 'store/store.html', {'products': products})
