@@ -14,6 +14,11 @@ def _cart_id(request): #funckcja prywatna
 
 
 def add_cart(request, product_id):
+    color = request.GET['color'] # 'color' bierze sie z template product detail <select name="color"
+    size = request.GET['size']
+    return HttpResponse(color + ' ' + size)
+    exit()
+
     product = Product.objects.get(id=product_id) #get the product
     try:
         cart = Cart.objects.get(cart_id=_cart_id(request)) # get the cart using the cart_id preent in the session
