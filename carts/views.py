@@ -14,6 +14,11 @@ def _cart_id(request): #funckcja prywatna
 
 
 def add_cart(request, product_id):
+    if request.method == 'POST':
+        for item in request.POST:
+            key = item
+            value = request
+
     product = Product.objects.get(id=product_id) #get the product
     try:
         cart = Cart.objects.get(cart_id=_cart_id(request)) # get the cart using the cart_id preent in the session
