@@ -14,10 +14,10 @@ def _cart_id(request): #funckcja prywatna
 
 
 def add_cart(request, product_id):
-    if request.method == 'POST':
-        for item in request.POST:
-            key = item
-            value = request
+    color = request.GET['color'] # 'color' bierze sie z template product detail <select name="color"
+    size = request.GET['size']
+    return HttpResponse(color + ' ' + size)
+    exit()
 
     product = Product.objects.get(id=product_id) #get the product
     try:
@@ -73,6 +73,5 @@ def cart(request, total=0, quantity=0, cart_items=None):
 
 
     return render(request, 'store/cart.html', {'total': total, 'quantity': quantity, 'cart_items': cart_items, 'tax': tax, 'grand_total': grand_total})
-
 
 
